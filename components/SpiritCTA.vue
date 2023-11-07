@@ -13,6 +13,10 @@ const props = defineProps({
 </template>
 
 <style>
+.spirit-cta {
+    display: flex;
+}
+
 .spirit-cta a {
     background-color: var(--color-cta);
     padding: 0.75em 1.25em;

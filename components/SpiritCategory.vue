@@ -1,27 +1,28 @@
 <script setup lang="ts">
-const props = defineProps({
-    tag: String,
-    fullName: String,
-    postCount: Number,
+const { category } = defineProps({
+    category: {
+        type: Object as PropType<Category>,
+        required: true,
+    }
 })
 
-const categoryLink = computed(() => `/cat/${props.tag}/`)
-const categoryColorVar = computed(() => `var(--palette-${props.tag?.toLowerCase()})`)
+const categoryLink = computed(() => `/cat/${category.tag?.toLowerCase()}/`)
+const categoryColorVar = computed(() => `var(--palette-${category.tag?.toLowerCase()})`)
 </script>
 
 <template>
     <div class="spirit-category">
         <RouterLink class="left-col" :to="categoryLink">
-            <span class="cat-tag">{{ tag }}</span>
+            <span class="cat-tag">{{ category.tag }}</span>
         </RouterLink>
         <div class="right-col">
             <div class="text-col">
                 <RouterLink :to="categoryLink">
-                    <h3>{{ fullName }}</h3>
+                    <h3>{{ category.name }}</h3>
                 </RouterLink>
                 <div class="post-count">
                     <span class="title">POSTS&nbsp;</span>
-                    <span class="count">#{{ postCount }}</span>
+                    <span class="count">#{{ category.postCount }}</span>
                 </div>
             </div>
         </div>

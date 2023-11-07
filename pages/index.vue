@@ -1,12 +1,10 @@
 
 <script setup lang="ts">
 const messaging = useMessaging()
-const { public: cfg } = useRuntimeConfig()
-const { data, error } = await useFetch(`/v1`, { server: false })
-console.log(data.value)
+const { data, error } = await useFetch<Category[]>(`/v1`)
 if(error.value != null) {
     messaging.value = {
-        message: "category fetch",
+        message: "category list fetch",
         isError: true,
         code: error.value?.statusCode || -1
     }
@@ -19,7 +17,7 @@ if(error.value != null) {
     <section class="categories panel">
         <ul class="category-list">
             <li v-for="cat in data">
-                <SpiritCategory :full-name="cat['name']" :tag="cat['tag']" :post-count="cat['postCount']" />
+                <SpiritCategory :category="cat" />
             </li>
         </ul>
     </section>
