@@ -41,12 +41,13 @@ if (error.value != null) {
 
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     justify-content: center;
     gap: 1.5em;
 }
 
 .thread-list li {
+    max-width: 100%;
     margin: 0;
     padding: 0;
 }

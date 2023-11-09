@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { dateTimeFormatter } from "@/util/time"
+
 const props = defineProps({
     post: {
         type: Object as PropType<Post>,
@@ -22,7 +24,8 @@ const props = defineProps({
     }
 })
 
-const postLink = computed(() => `/${props.categoryTag}/${props.post.number}`)
+const postLink = computed(() => `/${props.categoryTag}/${props.post.num}`)
+const postTimestamp = computed(() => dateTimeFormatter.format(new Date(props.post.createdAt)))
 const categoryColorVar = computed(() => `var(--palette-${props.categoryTag?.toLowerCase()})`)
 const cappedContent = computed(() => props.post.content.length > props.contentCap ? props.post.content.substring(0, props.contentCap-3) + "..." : props.post.content)
 
@@ -42,6 +45,10 @@ const cappedContent = computed(() => props.post.content.length > props.contentCa
                     <SpiritCTA v-if="showCta" :link="postLink">View</SpiritCTA>
                 </div>
             </div>
+            <div class="post-right-col">
+                <span class="number">#{{ post.num }}</span>
+                <span class="timestamp">{{ postTimestamp }}</span>
+            </div>
         </div>
     </div>
 </template>
@@ -50,6 +57,13 @@ const cappedContent = computed(() => props.post.content.length > props.contentCa
 .spirit-post  {
     display: flex;
     height: 100%;
+    max-width: 100%;
+}
+
+@media (max-width: 390px) {
+    .spirit-post {
+        flex-flow: column;
+    }
 }
 
 .spirit-post .identity-section {
@@ -61,6 +75,7 @@ const cappedContent = computed(() => props.post.content.length > props.contentCa
     align-items: center;
     gap: 10px;
     background-color: var(--color-identity);
+    padding: 0.45em 0;
 }
 
 .spirit-post img.profile {
@@ -69,10 +84,13 @@ const cappedContent = computed(() => props.post.content.length > props.contentCa
 }
 
 .spirit-post .post-section {
-    overflow: auto;
     flex-grow: 1;
     background-color: var(--bg-d);
     padding: 1em;
+
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1em;
 }
 
 .spirit-post .post-left-col {
@@ -81,8 +99,19 @@ const cappedContent = computed(() => props.post.content.length > props.contentCa
     height: 100%;
 }
 
+.spirit-post .post-right-col {
+    flex-grow: 1;
+    min-width: fit-content;
+    opacity: 0.5;
+
+    display: flex;
+    flex-flow: column;
+    text-align: right;
+}
+
 .spirit-post .content {
     word-wrap: break-word;
+    word-break: break-all;
 }
 
 .spirit-post .cta-tag-wrap {

@@ -5,8 +5,9 @@ interface Category {
 }
 
 interface Post {
-    number: number
+    num: number
     content: string
+    createdAt: string
 }
 
 interface CategoryView {
