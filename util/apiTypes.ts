@@ -14,3 +14,8 @@ interface CategoryView {
     category: Category
     threads: Post[]
 }
+
+interface ThreadView {
+    category: Category
+    posts: Post[]
+}

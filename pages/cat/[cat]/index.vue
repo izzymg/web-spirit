@@ -2,14 +2,9 @@
 const route = useRoute()
 const messaging = useMessaging()
 
-let cat: string
-if (Array.isArray(route.params.cat)) {
-    cat = route.params.cat[0]
-} else {
-    cat = route.params.cat
-}
+let categoryTag = route.params.cat.toString()
 
-const { data, error } = await useFetch<CategoryView>(`/v1/${cat.toUpperCase()}/`)
+const { data, error } = await useFetch<CategoryView>(`/v1/${categoryTag.toUpperCase()}/`)
 if (error.value != null) {
     messaging.value = {
         message: "category fetch",

@@ -29,7 +29,7 @@ const category = computed(() => props.categoryTag?.toLowerCase())
 const postLink = computed(() => `/cat/${category.value}/${props.post.num}`)
 const postTimestamp = computed(() => dateTimeFormatter.format(new Date(props.post.createdAt)))
 const categoryColorVar = computed(() => `var(--palette-${category.value})`)
-const cappedContent = computed(() => props.post.content.length > props.contentCap ? props.post.content.substring(0, props.contentCap-3) + "..." : props.post.content)
+const cappedContent = computed(() => props.contentCap > 1 && props.post.content.length > props.contentCap ? props.post.content.substring(0, props.contentCap-3) + "..." : props.post.content)
 
 </script>
 
@@ -113,7 +113,7 @@ const cappedContent = computed(() => props.post.content.length > props.contentCa
 
 .spirit-post .content {
     word-wrap: break-word;
-    word-break: break-all;
+    word-break: break-word;
 }
 
 .spirit-post .cta-tag-wrap {
