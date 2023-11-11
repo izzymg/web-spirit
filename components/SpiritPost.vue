@@ -24,9 +24,11 @@ const props = defineProps({
     }
 })
 
-const postLink = computed(() => `/${props.categoryTag}/${props.post.num}`)
+const category = computed(() => props.categoryTag?.toLowerCase())
+
+const postLink = computed(() => `/${category.value}/${props.post.num}`)
 const postTimestamp = computed(() => dateTimeFormatter.format(new Date(props.post.createdAt)))
-const categoryColorVar = computed(() => `var(--palette-${props.categoryTag?.toLowerCase()})`)
+const categoryColorVar = computed(() => `var(--palette-${category.value})`)
 const cappedContent = computed(() => props.post.content.length > props.contentCap ? props.post.content.substring(0, props.contentCap-3) + "..." : props.post.content)
 
 </script>
@@ -41,7 +43,7 @@ const cappedContent = computed(() => props.post.content.length > props.contentCa
             <div class="post-left-col">
                 <p class="content">{{ cappedContent }}</p>
                 <div class="cta-tag-wrap" v-if="showTag || showCta">
-                    <p v-if="showTag" class="tag">{{ categoryTag }}</p>
+                    <p v-if="showTag" class="tag">{{ category }}</p>
                     <SpiritCTA v-if="showCta" :link="postLink">View</SpiritCTA>
                 </div>
             </div>
