@@ -26,7 +26,7 @@ const props = defineProps({
 
 const category = computed(() => props.categoryTag?.toLowerCase())
 
-const postLink = computed(() => `/${category.value}/${props.post.num}`)
+const postLink = computed(() => `/cat/${category.value}/${props.post.num}`)
 const postTimestamp = computed(() => dateTimeFormatter.format(new Date(props.post.createdAt)))
 const categoryColorVar = computed(() => `var(--palette-${category.value})`)
 const cappedContent = computed(() => props.post.content.length > props.contentCap ? props.post.content.substring(0, props.contentCap-3) + "..." : props.post.content)
