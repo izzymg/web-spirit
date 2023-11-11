@@ -69,6 +69,8 @@ const cappedContent = computed(() => props.contentCap > 1 && props.post.content.
 }
 
 .spirit-post .identity-section {
+    background-color: var(--color-identity);
+    font-size: 0.9em;
 
     min-width: 100px;
     display: flex;
@@ -76,7 +78,6 @@ const cappedContent = computed(() => props.contentCap > 1 && props.post.content.
     justify-content: center;
     align-items: center;
     gap: 10px;
-    background-color: var(--color-identity);
     padding: 0.45em 0;
 }
 
@@ -102,6 +103,8 @@ const cappedContent = computed(() => props.contentCap > 1 && props.post.content.
 }
 
 .spirit-post .post-right-col {
+    font-family: var(--font-mono);
+
     flex-grow: 1;
     min-width: fit-content;
     opacity: 0.5;
@@ -112,6 +115,7 @@ const cappedContent = computed(() => props.contentCap > 1 && props.post.content.
 }
 
 .spirit-post .content {
+    font-size: .9em;
     word-wrap: break-word;
     word-break: break-word;
 }

@@ -17,6 +17,8 @@
 body {
     color: #fff;
     background-color: var(--bg-d);
+
+    font-family: "Noto Sans", sans-serif;
 }
 
 .panel {
