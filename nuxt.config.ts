@@ -4,7 +4,8 @@ export default defineNuxtConfig({
     "nuxt-icon",
     ["@nuxtjs/google-fonts", {
       families: {
-        "Noto Sans": [400]
+        "Noto Sans": [400],
+        "PT Mono": [500]
       },
       display: "swap",
       subsets: "cyrillic"

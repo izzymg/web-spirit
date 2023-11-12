@@ -104,6 +104,7 @@ const cappedContent = computed(() => props.contentCap > 1 && props.post.content.
 
 .spirit-post .post-right-col {
     font-family: var(--font-mono);
+    font-size: .8em;
 
     flex-grow: 1;
     min-width: fit-content;

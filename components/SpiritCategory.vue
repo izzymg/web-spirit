@@ -17,11 +17,11 @@ const categoryColorVar = computed(() => `var(--palette-${category.tag?.toLowerCa
         </RouterLink>
         <div class="right-col">
             <div class="text-col">
-                <RouterLink :to="categoryLink">
+                <RouterLink class="cat-link" :to="categoryLink">
                     <h3>{{ category.name }}</h3>
                 </RouterLink>
                 <div class="post-count">
-                    <span class="title">POSTS&nbsp;</span>
+                    <span class="title">posts ...&nbsp;</span>
                     <span class="count">#{{ category.postCount }}</span>
                 </div>
             </div>
@@ -39,17 +39,25 @@ const categoryColorVar = computed(() => `var(--palette-${category.tag?.toLowerCa
 
 .post-count,
 .cat-tag {
+    font-size: .8em;
     font-family: var(--font-mono);
 }
 
 .post-count .title {
-    opacity: 0.4;
+    opacity: 0.7;
 }
 
 h3 {
+    font-weight: normal;
     font-size: 1.8em;
     margin: 0;
     padding-bottom: 15px;
+}
+
+.cat-link {
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.8em;
 }
 
 .left-col {
