@@ -23,13 +23,13 @@ const props = defineProps({
         default: 0,
     }
 })
+const categoryColorVar = `var(--palette-${props.categoryTag})`
 
-const category = computed(() => props.categoryTag?.toLowerCase())
-
-const postLink = computed(() => `/cat/${category.value}/${props.post.num}`)
-const postTimestamp = computed(() => dateTimeFormatter.format(new Date(props.post.createdAt)))
-const categoryColorVar = computed(() => `var(--palette-${category.value})`)
+const datetime = computed(() => dateTimeFormatter.format(new Date(props.post.createdAt)).toLowerCase())
 const cappedContent = computed(() => props.contentCap > 1 && props.post.content.length > props.contentCap ? props.post.content.substring(0, props.contentCap-3) + "..." : props.post.content)
+
+const category = props.categoryTag?.toLowerCase()
+const postLink = `/cat/${props.categoryTag?.toLowerCase()}/${props.post.num}`
 
 </script>
 
@@ -49,7 +49,7 @@ const cappedContent = computed(() => props.contentCap > 1 && props.post.content.
             </div>
             <div class="post-right-col">
                 <span class="number">#{{ post.num }}</span>
-                <span class="timestamp">{{ postTimestamp }}</span>
+                <span class="timestamp">{{ datetime }}</span>
             </div>
         </div>
     </div>

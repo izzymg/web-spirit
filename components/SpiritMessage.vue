@@ -10,7 +10,7 @@ const close = () => {
 
 <template>
   <ClientOnly>
-    <div :class="{visible: messaging.message.length > 0, error: messaging.isError}" class="spirit-message-wrap">
+    <div :class="{visible: messaging.message?.length || 0 > 0, error: messaging.isError}" class="spirit-message-wrap">
       <div class="message-content">
         <span class="msg-code" v-if="messaging.code != -1">{{ messaging.code }}</span>
         <span>{{ messaging.message }}</span>
