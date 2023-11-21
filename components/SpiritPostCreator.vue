@@ -28,7 +28,7 @@ const onSubmit = async() => {
             code: -1,
             message: "submitting..."
         }
-        await $fetch(`/v1/${props.category.tag}/${props.thread ?? 0}`,
+        await $fetch(`http://localhost:3000/v1/categories/${props.category.tag}/${props.thread ?? 0}`,
         {
             method: "POST",
             body: {

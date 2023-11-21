@@ -8,9 +8,9 @@ definePageMeta({
 
 const messaging = useMessaging()
 let categoryTag = route.params.cat.toString()
-let number = route.params.number.toString()
+let number = parseInt(route.params.number.toString())
 
-const { data, error } = await useFetch<ThreadView>(`/v1/${categoryTag.toUpperCase()}/${number}`)
+const { data, error, refresh, } = await useFetch<ThreadView>(`http://localhost:3000/v1/categories/${categoryTag.toUpperCase()}/${number}`)
 if (error.value != null) {
     messaging.value = {
         message: "thread fetch",
@@ -19,10 +19,20 @@ if (error.value != null) {
     }
 }
 
+const categoryColorVar = computed(() => `var(--palette-${categoryTag.toLowerCase()})`)
+const onPostSubmitted = (_: number) => {
+    refresh()
+}
+
 </script>
 
 <template>
+    <div class="category panel" v-if="data">
+        <SpiritCategory :category="data.category"/>
+    </div>
+
     <div class="thread panel" v-if="data">
+        <SpiritPostCreator @submitted="onPostSubmitted" :category="data.category" :cssColorVar="categoryColorVar" :thread="number" />
         <div :class="{ op: index == 0 }" class="reply" v-for="(post, index) in data.posts">
             <SpiritPost :post="post" />
         </div>

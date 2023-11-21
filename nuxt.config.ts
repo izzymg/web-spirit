@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: false,
   modules: [
     "nuxt-icon",
     ["@nuxtjs/google-fonts", {
@@ -11,7 +12,4 @@ export default defineNuxtConfig({
       subsets: "cyrillic"
     }]
   ],
-  routeRules: {
-    "/v1/**": { proxy: { to: "http://localhost:3000/v1/**" } }
-  }
 })
