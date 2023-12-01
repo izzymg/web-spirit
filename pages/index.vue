@@ -1,8 +1,9 @@
 
 <script setup lang="ts">
 const messaging = useMessaging()
-const { data, error } = await useFetch<Category[]>(`/v1`)
+const { data, error } = await useFetch<Category[]>(`http://localhost:3000/v1/categories`)
 if(error.value != null) {
+    console.error(error.value)
     messaging.value = {
         message: "category list fetch",
         isError: true,
@@ -15,7 +16,7 @@ if(error.value != null) {
 
 <template>
     <section class="categories panel">
-        <ul class="category-list">
+        <ul v-if="data" class="category-list">
             <li v-for="cat in data">
                 <SpiritCategory :category="cat" />
             </li>
