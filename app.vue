@@ -24,6 +24,9 @@ main {
 
 .layout {
   width: min(950px, 98vw);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1em;
 }
 
 @media (min-width: 1200px) {
