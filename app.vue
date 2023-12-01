@@ -25,4 +25,12 @@ main {
 .layout {
   width: min(950px, 98vw);
 }
+
+@media (min-width: 1200px) {
+  .layout {
+    display: grid;
+    width: min(1200px, 98vw);
+    grid-template-columns: 200px auto;
+  }
+}
 </style>
