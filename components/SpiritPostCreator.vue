@@ -21,6 +21,8 @@ let content: string;
 let dialog = ref<HTMLDialogElement>();
 const messaging = useMessaging()
 
+const submitValue = props.thread ? "Submit Reply" : "Create Thread";
+
 const onSubmit = async() => {
     try{
         messaging.value = {
@@ -63,24 +65,23 @@ const onSubmit = async() => {
         <Teleport to="body">
             <div class="open-creator-btn-wrap">
                 <button class="icon-btn" v-on:click="dialog?.showModal">
-                    <Icon color="white" name="pixelarticons:edit-box" />
+                    <Icon size="48" color="white" name="pixelarticons:edit-box" />
                 </button>
             </div>
             <dialog ref="dialog" id="post-creator">
-                <h2 v-if="!props.thread">Create thread on {{ category?.tag }}</h2>
-                <h2 v-else>Reply to thread #{{ thread }}</h2>
+                <h2 v-if="!props.thread">{{ category?.tag }}</h2>
+                <h2 v-else>{{ category?.tag }}: #{{ thread }}</h2>
                 <form method="dialog" @submit="onSubmit">
                     <textarea placeholder="Your post..." v-model="content" id="creator-content"></textarea>
-                    <input type="submit">
+                    <input class="input-cta" type="submit" :value="submitValue">
                 </form>
             </dialog>
         </Teleport>
     </ClientOnly>
 </template>
 
-<style scoped>
+<style>
 .open-creator-btn-wrap {
-    opacity: 0.4;
     position: fixed;
     bottom: 15px;
     right: 15px;
@@ -88,12 +89,55 @@ const onSubmit = async() => {
     text-align: right;
 }
 
-.open-creator-btn-wrap:hover {
+.open-creator-btn-wrap .icon-btn {
+    opacity: 0.4;
+}
+
+.open-creator-btn-wrap .icon-btn:hover {
     opacity: 1;
 }
 
 .open-creator-btn-wrap button {
     background-color: v-bind(cssColorVar);
     padding: 1em;
+}
+
+dialog::backdrop {
+  background-image: linear-gradient(
+    45deg,
+    white,
+    var(--color-cta)
+  );
+  opacity: 0.65;
+}
+
+#post-creator {
+    width: min(650px, 90vw);
+    border: none;
+    background-color: var(--bg-c);
+    color: white;
+}
+
+#post-creator h2 {
+    text-align: center;
+    font-weight: normal;
+    font-family: var(--font-mono);
+}
+
+#post-creator textarea {
+    display: block;
+    box-sizing: border-box;
+    
+    width: 100%;
+    min-height: 150px;
+    
+    padding: 0.75em;
+    background-color: var(--bg-b);
+    color: #fff;
+    font-family: inherit;
+}
+
+#post-creator .input-cta {
+    margin: 1em 0;
 }
 </style>

@@ -23,5 +23,6 @@ const props = defineProps({
     border-radius: 1px;
     color: inherit;
     text-decoration: none;
+    border: none;
 }
 </style>
