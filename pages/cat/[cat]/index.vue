@@ -22,11 +22,14 @@ const onPostSubmitted = (_: number) => {
 <template>
     <div class="split-layout" v-if="data">
         <SpiritPostCreator @submitted="onPostSubmitted" :category="data.category" :cssColorVar="categoryColorVar" />
-        <ul class="thread-list panel">
+        <ul v-if="data.threads.length > 0" class="thread-list panel">
             <li v-for="thread in data.threads">
                 <SpiritPost :contentCap="300" showCta :categoryTag="data.category.tag" v-bind:post="thread" />
             </li>
         </ul>
+        <div class="nothing panel" v-else>
+            <p>there's... nothing here.. it's all empty</p>
+        </div>
         <div class="panel">
             <SpiritCategory v-bind:category="data.category" />
         </div>
@@ -54,5 +57,9 @@ const onPostSubmitted = (_: number) => {
     max-width: 100%;
     margin: 0;
     padding: 0;
+}
+
+.nothing.panel {
+    font-family: var(--font-mono);
 }
 </style>

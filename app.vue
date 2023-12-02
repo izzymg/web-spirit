@@ -29,10 +29,10 @@ main {
   gap: 1em;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
   .layout {
     display: grid;
-    width: min(1200px, 98vw);
+    width: min(1400px, 98vw);
     grid-template-columns: 200px auto;
   }
 }

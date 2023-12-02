@@ -27,14 +27,16 @@ const onPostSubmitted = (_: number) => {
 </script>
 
 <template>
-    <div class="category panel" v-if="data">
-        <SpiritCategory :category="data.category"/>
-    </div>
-
-    <div class="thread panel" v-if="data">
-        <SpiritPostCreator @submitted="onPostSubmitted" :category="data.category" :cssColorVar="categoryColorVar" :thread="number" />
-        <div :class="{ op: index == 0 }" class="reply" v-for="(post, index) in data.posts">
-            <SpiritPost :post="post" />
+    <div class="split-layout">
+        <div class="thread panel" v-if="data">
+            <SpiritPostCreator @submitted="onPostSubmitted" :category="data.category" :cssColorVar="categoryColorVar"
+                :thread="number" />
+            <div :class="{ op: index == 0 }" class="reply" v-for="(post, index) in data.posts">
+                <SpiritPost :post="post" />
+            </div>
+        </div>
+        <div class="category panel" v-if="data">
+            <SpiritCategory :category="data.category" />
         </div>
     </div>
 </template>
@@ -46,7 +48,7 @@ const onPostSubmitted = (_: number) => {
     gap: 1em;
 }
 
-.thread > .reply {
+.thread>.reply {
     grid-column: posts;
 }
 
