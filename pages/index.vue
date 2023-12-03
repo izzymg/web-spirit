@@ -24,11 +24,10 @@ if(error.value != null) {
             </ul>
         </section>
         <section class="intro panel">
-            <h2>categories</h2>
-            <p id="motd">if there was a message of the day, i'd put it here.</p>
+            <p id="motd">...</p>
             <div class="rules">
                 <p>no illegalities</p>
-                <p>behave</p>
+                <p>behave yrself</p>
             </div>
         </section>
     </div>
@@ -41,11 +40,19 @@ if(error.value != null) {
     padding: 0;
 
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column;
     height: 100%;
-    align-items: center;
+    align-items: stretch;
     
     gap: 2em;
+}
+
+.category-list > * {
+    flex-grow: 1;
+}
+
+#motd {
+    font-family: var(--font-mono);
 }
 
 .intro h2 {

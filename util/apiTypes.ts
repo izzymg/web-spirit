@@ -1,6 +1,7 @@
 interface Category {
     tag: string
     name: string
+    description: string
     postCount: number
 }
 

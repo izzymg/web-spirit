@@ -19,6 +19,7 @@ const categoryColorVar = computed(() => `var(--palette-${category.tag?.toLowerCa
             <div class="text-col">
                 <RouterLink class="cat-link" :to="categoryLink">
                     <h3>{{ category.name }}</h3>
+                    <p class="cat-desc">{{ category.description }}</p>
                 </RouterLink>
                 <div class="post-count">
                     <span class="title">posts ...&nbsp;</span>
