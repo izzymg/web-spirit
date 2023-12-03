@@ -16,7 +16,7 @@
 <style scoped>
 nav {
     display: flex;
-    flex-flow: row;
+    flex-flow: row wrap-reverse;
     justify-content: space-between;
     align-items: center;
 }
@@ -26,13 +26,14 @@ nav ul {
     padding: 0;
 
     display: flex;
-    flex-flow: row;
+    flex-flow: row wrap;
     list-style: none;
-    gap: 2em;
+    gap: 1em;
 }
 
 nav ul li a {
-    text-decoration: none;
+    text-decoration: underline;
+    font-family: var(--font-mono);
     color: inherit;
 }
 

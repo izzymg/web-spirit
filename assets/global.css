@@ -43,3 +43,16 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+
+.split-layout {
+    display: flex;
+    flex-flow: column-reverse nowrap;
+    gap: 1em;
+}
+
+@media (min-width: 1400px) {
+    .split-layout {
+        display: grid;
+        grid-template-columns: auto 300px;
+    }
+}
