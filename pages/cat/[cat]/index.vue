@@ -30,8 +30,10 @@ const onPostSubmitted = (_: number) => {
         <div class="nothing panel" v-else>
             <p>there's... nothing here.. it's all empty</p>
         </div>
-        <div class="panel">
-            <SpiritCategory v-bind:category="data.category" />
+        <div class="sticky-board">
+            <div class="panel">
+                <SpiritCategory v-bind:category="data.category" />
+            </div>
         </div>
     </div>
     <div v-else>
@@ -61,5 +63,10 @@ const onPostSubmitted = (_: number) => {
 
 .nothing.panel {
     font-family: var(--font-mono);
+}
+
+.sticky-board > * {
+    position: sticky;
+    top: 5px;
 }
 </style>

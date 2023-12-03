@@ -35,8 +35,10 @@ const onPostSubmitted = (_: number) => {
                 <SpiritPost :post="post" />
             </div>
         </div>
-        <div class="category panel" v-if="data">
-            <SpiritCategory :category="data.category" />
+        <div class="sticky-board">
+            <div class="category panel" v-if="data">
+                <SpiritCategory :category="data.category" />
+            </div>
         </div>
     </div>
 </template>
@@ -54,5 +56,10 @@ const onPostSubmitted = (_: number) => {
 
 .thread .op {
     margin-left: -1em;
+}
+
+.sticky-board > * {
+    position: sticky;
+    top: 5px;
 }
 </style>

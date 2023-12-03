@@ -7,7 +7,9 @@ import '~/assets/global.css'
     <SpiritMessage />
     <main>
       <div class="layout">
-        <SpiritHeader />
+        <div id="sticky-header">
+          <SpiritHeader />
+        </div>
         <NuxtPage />
       </div>
     </main>
@@ -36,4 +38,10 @@ main {
     grid-template-columns: 200px auto;
   }
 }
+
+#sticky-header > * {
+  position: sticky;
+  top: 5px;
+}
+
 </style>
