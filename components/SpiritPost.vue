@@ -36,7 +36,7 @@ const postLink = `/cat/${props.categoryTag?.toLowerCase()}/${props.post.num}`
 <template>
     <div class="spirit-post">
         <div class="identity-section">
-            <img class="profile" width="85" alt="Anonymous" src="/manequin-render.png"/>
+            <img class="profile" width="55" alt="Anonymous" src="/angel.webp"/>
             <span class="name">Anonymous</span>
         </div>
         <div class="post-section">
@@ -70,9 +70,9 @@ const postLink = `/cat/${props.categoryTag?.toLowerCase()}/${props.post.num}`
 
 .spirit-post .identity-section {
     background-color: var(--color-identity);
-    font-size: 0.9em;
+    font-size: 0.75em;
 
-    min-width: 100px;
+    min-width: 75px;
     display: flex;
     flex-flow: column;
     justify-content: center;
