@@ -17,6 +17,7 @@ const props = defineProps({
         default: "red"
     }
 })
+let subject: string;
 let content: string;
 let dialog = ref<HTMLDialogElement>();
 const messaging = useMessaging()
@@ -34,6 +35,7 @@ const onSubmit = async() => {
         {
             method: "POST",
             body: {
+                subject,
                 content,
             },
             responseType: "json",
@@ -72,6 +74,7 @@ const onSubmit = async() => {
                 <h2 v-if="!props.thread">{{ category?.tag }}</h2>
                 <h2 v-else>{{ category?.tag }}: #{{ thread }}</h2>
                 <form method="dialog" @submit="onSubmit">
+                    <input v-if="!props.thread" type="text" placeholder="Thread subject" v-model="subject"/>
                     <textarea placeholder="Your post..." v-model="content" id="creator-content"></textarea>
                     <input class="input-cta" type="submit" :value="submitValue">
                 </form>
@@ -124,17 +127,22 @@ dialog::backdrop {
     font-family: var(--font-mono);
 }
 
-#post-creator textarea {
+#post-creator textarea, #post-creator input[type="text"] {
     display: block;
     box-sizing: border-box;
     
     width: 100%;
-    min-height: 150px;
-    
+    border: none;
+    margin: 1em 0;
+
     padding: 0.75em;
     background-color: var(--bg-b);
     color: #fff;
     font-family: inherit;
+}
+
+#post-creator textarea {
+    min-height: 90px;
 }
 
 #post-creator .input-cta {
