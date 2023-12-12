@@ -57,3 +57,6 @@ body {
         grid-template-columns: auto 300px;
     }
 }
+a {
+    color: rgb(59 255 201);
+}

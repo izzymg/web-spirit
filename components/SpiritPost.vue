@@ -35,13 +35,14 @@ const postLink = `/cat/${props.categoryTag?.toLowerCase()}/${props.post.num}`
 
 <template>
     <div class="spirit-post">
+        <a class="anchor" :id="post.num.toString()"/>
         <div class="identity-section">
             <img class="profile" width="55" alt="Anonymous" src="/angel.webp"/>
             <span class="name">Anonymous</span>
         </div>
         <div class="post-section">
             <div class="post-left-col">
-                <NuxtLink :to="postLink" v-if="post.subject" class="subject" v-html="post.subject"></NuxtLink>
+                <NuxtLink :to="`${postLink}/#0`" v-if="post.subject" class="subject" v-html="post.subject"></NuxtLink>
                 <p class="content" v-html="cappedContent"></p>
                 <div class="cta-tag-wrap" v-if="showTag || showCta">
                     <p v-if="showTag" class="tag">{{ category }}</p>
@@ -49,7 +50,7 @@ const postLink = `/cat/${props.categoryTag?.toLowerCase()}/${props.post.num}`
                 </div>
             </div>
             <div class="post-right-col">
-                <span class="number">#{{ post.num }}</span>
+                <a :href="'#' + post.num" class="number">#{{ post.num }}</a>
                 <span class="timestamp">{{ datetime }}</span>
             </div>
         </div>
@@ -139,7 +140,7 @@ const postLink = `/cat/${props.categoryTag?.toLowerCase()}/${props.post.num}`
 
 .spirit-post .subject {
     font-weight: bold;
-    color: rgb(80, 197, 80);
+    color: var(--palette-prog);
 }
 
 </style>
