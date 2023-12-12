@@ -32,7 +32,7 @@ const onPostSubmitted = (_: number) => {
             <SpiritPostCreator @submitted="onPostSubmitted" :category="data.category" :cssColorVar="categoryColorVar"
                 :thread="number" />
             <div :class="{ op: index == 0 }" class="reply" v-for="(post, index) in data.posts">
-                <SpiritPost :post="post" />
+                <SpiritPost :categoryTag="data.category.tag" :post="post" />
             </div>
         </div>
         <div class="sticky-board">

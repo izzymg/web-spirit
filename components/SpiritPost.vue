@@ -41,7 +41,8 @@ const postLink = `/cat/${props.categoryTag?.toLowerCase()}/${props.post.num}`
         </div>
         <div class="post-section">
             <div class="post-left-col">
-                <p class="content">{{ cappedContent }}</p>
+                <NuxtLink :to="postLink" v-if="post.subject" class="subject" v-html="post.subject"></NuxtLink>
+                <p class="content" v-html="cappedContent"></p>
                 <div class="cta-tag-wrap" v-if="showTag || showCta">
                     <p v-if="showTag" class="tag">{{ category }}</p>
                     <SpiritCTA v-if="showCta" :link="postLink">View</SpiritCTA>
@@ -134,6 +135,11 @@ const postLink = `/cat/${props.categoryTag?.toLowerCase()}/${props.post.num}`
     font-family: var(--font-mono);
     border-radius: 15px;
     background-color: v-bind(categoryColorVar);
+}
+
+.spirit-post .subject {
+    font-weight: bold;
+    color: rgb(80, 197, 80);
 }
 
 </style>
