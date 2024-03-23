@@ -1,5 +1,6 @@
 <template>
     <div class="panel">
+        <SpiritProfile/>
         <header>
             <nav>
                 <ul>
