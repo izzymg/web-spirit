@@ -1,6 +1,6 @@
 <template>
     <div class="panel">
-        <SpiritProfile/>
+        <SpiritAuthPanel/>
         <header>
             <nav>
                 <ul>

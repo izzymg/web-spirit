@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { useAuth0 } from '@auth0/auth0-vue';
+const { user, getAccessTokenSilently, isAuthenticated, } = useAuth0()
+
 const emit = defineEmits<{
     (e: "submitted", postNumber: number): void
 }>()
+
 
 const props = defineProps({
     category: {
@@ -26,17 +30,24 @@ const submitValue = props.thread ? "Submit Reply" : "Create Thread";
 
 const onSubmit = async() => {
     try{
+
         messaging.value = {
             isError: false,
             code: -1,
             message: "submitting..."
         }
+
+        const token = await getAccessTokenSilently()
+
         await $fetch(`http://localhost:3000/v1/categories/${props.category.tag}/${props.thread ?? 0}`,
         {
             method: "POST",
             body: {
                 subject,
                 content,
+            },
+            headers: {
+                "Authorization": token,
             },
             responseType: "json",
             onResponseError: ({ response }) => {
@@ -71,13 +82,21 @@ const onSubmit = async() => {
                 </button>
             </div>
             <dialog ref="dialog" id="post-creator">
-                <h2 v-if="!props.thread">{{ category?.tag }}</h2>
-                <h2 v-else>{{ category?.tag }}: #{{ thread }}</h2>
-                <form method="dialog" @submit="onSubmit">
-                    <input v-if="!props.thread" type="text" placeholder="Thread subject" v-model="subject"/>
-                    <textarea placeholder="Your post..." v-model="content" id="creator-content"></textarea>
-                    <input class="input-cta" type="submit" :value="submitValue">
-                </form>
+                <div v-if="isAuthenticated" class="post-creation-form">
+                    <div class="post-details">
+                        <SpiritProfileBadge :username="user?.preferred_username" :pfp-uri="user?.picture"></SpiritProfileBadge>
+                        <span v-if="!props.thread">{{ category?.name }}: create a thread</span>
+                        <span v-else>{{ category?.name }}: #{{ thread }} replying</span>
+                    </div>
+                    <form method="dialog" @submit="onSubmit">
+                        <input v-if="!props.thread" type="text" placeholder="Subject" v-model="subject"/>
+                        <textarea placeholder="..." v-model="content" id="creator-content"></textarea>
+                        <input class="input-cta" type="submit" :value="submitValue">
+                    </form>
+                </div>
+                <div v-else>
+                    <h2>You need to log in.</h2>
+                </div>
             </dialog>
         </Teleport>
     </ClientOnly>
@@ -116,9 +135,10 @@ dialog::backdrop {
 
 #post-creator {
     width: min(650px, 90vw);
-    border: none;
+    border: 1px solid var(--color-identity);
     background-color: var(--bg-c);
     color: white;
+    border-radius: 5px;
 }
 
 #post-creator h2 {
@@ -148,4 +168,11 @@ dialog::backdrop {
 #post-creator .input-cta {
     margin: 1em 0;
 }
+
+#post-creator .post-details {
+    display: flex;   
+    align-items: center;
+    gap: 2em;
+}
+
 </style>

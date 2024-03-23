@@ -10,6 +10,7 @@ interface Post {
     content: string
     subject: string
     createdAt: string
+    username: string
 }
 
 interface CategoryView {

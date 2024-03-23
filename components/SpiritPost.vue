@@ -38,7 +38,7 @@ const postLink = `/cat/${props.categoryTag?.toLowerCase()}/${props.post.num}`
         <a class="anchor" :id="post.num.toString()"/>
         <div class="identity-section">
             <img class="profile" width="55" alt="Anonymous" src="/angel.webp"/>
-            <span class="name">Anonymous</span>
+            <span class="name">{{ post.username }}</span>
         </div>
         <div class="post-section">
             <div class="post-left-col">
