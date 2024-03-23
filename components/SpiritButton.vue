@@ -32,7 +32,7 @@ const sizeCss = computed(() => `${props.buttonSize}em`)
     border: none;
     padding: 0.45em 1em;
     color: inherit;
-    border-radius: 3%;
+    border-radius: 3px;
 
     transition: 100ms;
 
