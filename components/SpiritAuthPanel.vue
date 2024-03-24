@@ -5,7 +5,7 @@
                 <SpiritButton v-on:click="doLogin">Log In</SpiritButton>
             </div>
             <div class="logged-in" v-else>
-                <SpiritProfileBadge :pfp-uri="user?.picture" :username="user?.preferred_username"></SpiritProfileBadge>
+                <SpiritProfileBadge :verified="user?.email_verified" :pfp-uri="user?.picture" :username="user?.preferred_username"></SpiritProfileBadge>
                 <SpiritButton v-on:click="doLogout">Log Out</SpiritButton>
             </div>
         </div>

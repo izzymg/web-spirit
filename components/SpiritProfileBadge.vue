@@ -2,7 +2,10 @@
     <ClientOnly>
         <div class="profile-badge">
             <img class="pfp" :src="props.pfpUri" width="50" />
-            <span class="username">{{ props.username }}</span>
+            <div class="user-details">
+                <span class="username">{{ props.username }}</span>
+                <span class="unverified" v-if="!verified">UNVERIFIED</span>
+            </div>
         </div>
     </ClientOnly>
 </template>
@@ -16,6 +19,10 @@
         pfpUri: {
             type: String,
             default: "/angel.webp",
+        },
+        verified: {
+            type: Boolean,
+            default: true,
         }
     })
 </script>
@@ -34,7 +41,20 @@
     border-radius: 50%;
 }
 
+.user-details {
+    display: flex;
+    flex-flow: column;
+}
+
+.unverified {
+    font-size: 0.9em;
+    font-weight: bold;
+    font-family: var(--font-mono);
+    color: red;
+}
+
 .username {
     font-family: var(--font-mono);
 }
+
 </style>
