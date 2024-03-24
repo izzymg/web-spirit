@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { dateTimeFormatter } from "@/util/time"
+import { useAuth0 } from "@auth0/auth0-vue";
+
+const messaging = useMessaging()
+const { getAccessTokenSilently, } = useAuth0()
 
 const props = defineProps({
     post: {
@@ -17,8 +21,15 @@ const props = defineProps({
     contentCap: {
         type: Number,
         default: 0,
+    },
+    showModeration: {
+        type: Boolean,
+        default: false,
     }
 })
+
+const emit = defineEmits(["change"])
+
 const categoryColorVar = `var(--palette-${props.post.cat})`
 
 const datetime = computed(() => dateTimeFormatter.format(new Date(props.post.createdAt)).toLowerCase())
@@ -27,11 +38,60 @@ const cappedContent = computed(() => props.contentCap > 1 && props.post.content.
 const category = props.post.cat?.toLowerCase()
 const postLink = `/cat/${props.post.cat?.toLowerCase()}/${props.post.num}`
 
+const deletePost = async() => {
+    const token = await getAccessTokenSilently()
+    try {
+        $fetch(`http://localhost:3000/v1/categories/${props.post.cat}/${props.post.num}`, {
+            headers:  { "authorization": token },
+            method: "DELETE",
+            onResponseError: ({ response }) => {
+                messaging.value = {
+                    isError: true,
+                    message: response._data,
+                    code: response.status
+                }
+            },
+            onResponse: ({ response }) => {
+                console.log(response)
+                messaging.value = {
+                    isError: false,
+                    message: response._data,
+                    code: response.status
+                }
+            }
+        })
+        emit("change")
+    } catch(err) {
+        messaging.value = {
+            isError: true,
+            message: "unknown error, you might be offline",
+            code: 500
+        }
+    }
+}
+
+const onDeleteClick = () => {
+    messaging.value = {
+        code: 0,
+        isError: false,
+        message: "delete this post..?",
+        confirmation: {
+            action: "delete it",
+            onConfirm: deletePost
+        }
+    }
+}
+
 </script>
 
 <template>
     <div class="spirit-post">
         <a class="anchor" :id="post.num.toString()"/>
+        <div v-if="showModeration" class="mod-section">
+            <a href="#" v-on:click="onDeleteClick">
+                <icon color="red" name="pixelarticons-delete"></icon>
+            </a>
+        </div>
         <div class="identity-section">
             <img class="profile" width="55" alt="Anonymous" src="/angel.webp"/>
             <span class="name">{{ post.username }}</span>
@@ -64,6 +124,10 @@ const postLink = `/cat/${props.post.cat?.toLowerCase()}/${props.post.num}`
     .spirit-post {
         flex-flow: column;
     }
+}
+
+.spirit-post .mod-section {
+    padding: 1em;
 }
 
 .spirit-post .identity-section {

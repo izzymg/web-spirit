@@ -3,27 +3,23 @@ import { useAuth0 } from '@auth0/auth0-vue';
 
 const messaging = useMessaging()
 const { isAuthenticated, getAccessTokenSilently, } = useAuth0()
-let posts = ref<Post[]>([]);
-let postsLoaded = false;
-let loading = ref(false);
+let loading = ref(true);
 
-const loadUserPosts = async () => {
-    const token = await getAccessTokenSilently()
-    posts.value = await $fetch<Post[]>(`http://localhost:3000/v1/yours`, {
-        method: "GET",
-        headers: {
-            "Authorization": token
-        },
-        onResponseError: ({ response }) => {
-            messaging.value = {
-                isError: true,
-                message: response._data,
-                code: response.status
-            }
-        }
-    })
-    postsLoaded = true
+const token = await getAccessTokenSilently()
+const { data: posts, error, refresh } = await useFetch<Post[]>(`http://localhost:3000/v1/yours`, {
+    method: "GET",
+    headers: {
+        "Authorization": token
+    },
+})
+if(error && error.value?.statusCode && error.value?.statusCode !== 404) {
+    messaging.value = {
+        isError: true,
+        message: error.value?.data,
+        code: error.value?.statusCode || -1
+    }
 }
+loading.value = false
 
 </script>
 <template>
@@ -33,12 +29,15 @@ const loadUserPosts = async () => {
                 <h1>your spirit</h1>
             </div>
             <div class="panel">
-                <SpiritButton v-if="!postsLoaded" v-on:click="loadUserPosts">your posts...</SpiritButton>
                 <span v-if="loading">...</span>
-                <div class="user-posts-wrap">
+                <div class="user-posts-wrap" v-if="posts">
                     <div v-for="post in posts">
-                    <SpiritPost :post="post"/>
+                        <SpiritPost v-on:change="refresh" show-moderation :post="post"/>
                     </div>
+                </div>
+                <div class="no-posts" v-else>
+                    <p>your spirit is empty...</p>
+                    <SpiritButton v-on:click="refresh">refresh</SpiritButton>
                 </div>
             </div>
         </section>
@@ -52,6 +51,7 @@ const loadUserPosts = async () => {
 .your-spirit-layout {
     display: grid;
     align-items: center;
+    gap: 1em;
 }
 
 .spirit-btn {

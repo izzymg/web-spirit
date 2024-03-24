@@ -6,6 +6,11 @@ const close = () => {
   messaging.value.isError = false
   messaging.value.code = -1
 }
+
+const confirm = async() => {
+  close()
+  await messaging.value.confirmation?.onConfirm()
+}
 </script>
 
 <template>
@@ -14,6 +19,7 @@ const close = () => {
       <div class="message-content">
         <span class="msg-code" v-if="messaging.code != -1">{{ messaging.code }}</span>
         <span>{{ messaging.message }}</span>
+        <SpiritButton v-on:click="confirm" v-if="messaging.confirmation">{{ messaging.confirmation.action }}</SpiritButton>
       </div>
       <button class="icon-btn" v-on:click="close">
         <Icon color="white" name="pixelarticons:close" />
@@ -38,6 +44,13 @@ const close = () => {
   background: color-mix(in srgb, var(--bg-b) 60%, transparent);
   border-radius: 4px;
   padding: 0.8em 1em;
+}
+
+.message-content {
+  display: flex;
+  flex-flow: row;
+  gap: 1em;
+  align-items: center;
 }
 
 .spirit-message-wrap.visible {
