@@ -6,10 +6,6 @@ const props = defineProps({
         type: Object as PropType<Post>,
         required: true,
     },
-    categoryTag: {
-        type: String,
-        required: false,
-    },
     showTag: {
         type: Boolean,
         required: false,
@@ -23,13 +19,13 @@ const props = defineProps({
         default: 0,
     }
 })
-const categoryColorVar = `var(--palette-${props.categoryTag})`
+const categoryColorVar = `var(--palette-${props.post.cat})`
 
 const datetime = computed(() => dateTimeFormatter.format(new Date(props.post.createdAt)).toLowerCase())
 const cappedContent = computed(() => props.contentCap > 1 && props.post.content.length > props.contentCap ? props.post.content.substring(0, props.contentCap-3) + "..." : props.post.content)
 
-const category = props.categoryTag?.toLowerCase()
-const postLink = `/cat/${props.categoryTag?.toLowerCase()}/${props.post.num}`
+const category = props.post.cat?.toLowerCase()
+const postLink = `/cat/${props.post.cat?.toLowerCase()}/${props.post.num}`
 
 </script>
 

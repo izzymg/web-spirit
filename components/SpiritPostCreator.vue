@@ -29,46 +29,41 @@ const messaging = useMessaging()
 const submitValue = props.thread ? "Submit Reply" : "Create Thread";
 
 const onSubmit = async() => {
-    try{
-
-        messaging.value = {
-            isError: false,
-            code: -1,
-            message: "submitting..."
-        }
-
-        const token = await getAccessTokenSilently()
-
-        await $fetch(`http://localhost:3000/v1/categories/${props.category.tag}/${props.thread ?? 0}`,
-        {
-            method: "POST",
-            body: {
-                subject,
-                content,
-            },
-            headers: {
-                "Authorization": token,
-            },
-            responseType: "json",
-            onResponseError: ({ response }) => {
-                messaging.value = {
-                    isError: true,
-                    message: response._data,
-                    code: response.status
-                }
-            },
-            onResponse: ({ response }) => {
-                messaging.value = {
-                    isError: false,
-                    message: response._data["message"],
-                    code: response.status
-                }
-                emit("submitted", 0)
-            }
-        })
-    } catch {
-        // this library is not my favourite library
+    messaging.value = {
+        isError: false,
+        code: -1,
+        message: "submitting..."
     }
+
+    const token = await getAccessTokenSilently()
+
+    await $fetch(`http://localhost:3000/v1/categories/${props.category.tag}/${props.thread ?? 0}`,
+    {
+        method: "POST",
+        body: {
+            subject,
+            content,
+        },
+        headers: {
+            "Authorization": token,
+        },
+        responseType: "json",
+        onResponseError: ({ response }) => {
+            messaging.value = {
+                isError: true,
+                message: response._data,
+                code: response.status
+            }
+        },
+        onResponse: ({ response }) => {
+            messaging.value = {
+                isError: false,
+                message: response._data["message"],
+                code: response.status
+            }
+            emit("submitted", 0)
+        }
+    })
 }
 
 </script>

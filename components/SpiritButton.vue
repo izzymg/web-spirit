@@ -3,22 +3,6 @@ const emit = defineEmits<{
     (event: "click"): void
 }>()
 
-enum ButtonSizes {
-    Xs = 0.8,
-    Small = 1,
-    Medium = 1.2,
-    Large = 1.4,
-}
-
-const props = defineProps({
-    buttonSize: {
-        type: Object as PropType<ButtonSizes>,
-        default: ButtonSizes.Xs,
-    }
-})
-
-const sizeCss = computed(() => `${props.buttonSize}em`)
-
 </script>
 
 <template>
@@ -36,7 +20,7 @@ const sizeCss = computed(() => `${props.buttonSize}em`)
 
     transition: 100ms;
 
-    font-size: v-bind(sizeCss)
+    font-size: inherit;
 }
 
 .spirit-btn:hover {

@@ -7,6 +7,7 @@ interface Category {
 
 interface Post {
     num: number
+    cat: string
     content: string
     subject: string
     createdAt: string

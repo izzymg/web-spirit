@@ -24,7 +24,7 @@ const onPostSubmitted = (_: number) => {
         <SpiritPostCreator @submitted="onPostSubmitted" :category="data.category" :cssColorVar="categoryColorVar" />
         <ul v-if="data.threads.length > 0" class="thread-list panel">
             <li v-for="thread in data.threads">
-                <SpiritPost :contentCap="300" showCta :categoryTag="data.category.tag" v-bind:post="thread" />
+                <SpiritPost :contentCap="300" showCta v-bind:post="thread" />
             </li>
         </ul>
         <div class="nothing panel" v-else>

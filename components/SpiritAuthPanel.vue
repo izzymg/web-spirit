@@ -29,4 +29,8 @@ const doLogout = () => logout()
     gap: 1em;
     justify-content: center;
 }
+
+.spirit-btn {
+    font-size: 0.8em;
+}
 </style>
