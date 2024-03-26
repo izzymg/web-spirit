@@ -58,7 +58,7 @@ const onSubmit = async() => {
         onResponse: ({ response }) => {
             messaging.value = {
                 isError: false,
-                message: response._data["message"],
+                message: response._data,
                 code: response.status
             }
             emit("submitted", 0)
